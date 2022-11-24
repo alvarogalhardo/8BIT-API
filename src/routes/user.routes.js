@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { signUp } from "../controllers/userController.js";
+import { signIn, signUp } from "../controllers/userController.js";
 import {
+  signInValidation,
   signUpValidation,
   userSchemaValidation,
 } from "../middlewares/auth.validation.middleware.js";
@@ -8,6 +9,6 @@ import {
 const userRoutes = Router();
 
 userRoutes.post("/sign-up", userSchemaValidation, signUpValidation, signUp);
-userRoutes.post("/sign-in");
+userRoutes.post("/sign-in", signInValidation, signIn);
 
 export default userRoutes;
