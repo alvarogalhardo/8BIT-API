@@ -11,4 +11,8 @@ try {
   console.log(err);
 }
 
-export const db = mongoClient.db("8BIT");
+const db = mongoClient.db("8BIT");
+
+export const usersCollection = db.collection("users");
+export const sessionsCollection = db.collection("sessions");
+export const gamesCollection = db.collection("games");
