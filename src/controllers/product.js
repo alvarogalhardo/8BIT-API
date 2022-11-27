@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { productsCollection } from "../database/8BIT_DB.js";
 
 export async function postProduct(req, res) {
@@ -11,17 +12,19 @@ export async function postProduct(req, res) {
   }
 }
 
-export async function searchProducts(req, res) {
-  const { search } = res.locals;
+export async function getProducts(req, res) {
+  const search = res.locals.search;
+  search.toUpperCase();
+  const limit = parseInt(req.query.limit);
   let products;
   try {
     if (search) {
       products = await productsCollection
         .find({
           $or: [
-            { catergories: { $in: [search] } },
             { title: { $regex: search, $options: "i" } },
             { desc: { $regex: search, $options: "i" } },
+            { categories: { $in: [search] } },
           ],
         })
         .toArray();
@@ -29,7 +32,8 @@ export async function searchProducts(req, res) {
     } else {
       products = await productsCollection
         .find()
-        .limit(10)
+        .limit(limit)
+        .sort({ _id: 1 })
         .toArray();
       res.status(200).send(products);
     }
@@ -39,6 +43,16 @@ export async function searchProducts(req, res) {
   }
 }
 
-export async function getProducts(req, res) {
-  
+export async function getProductById(req, res) {
+  try {
+    const product = await productsCollection
+      .find({
+        _id: new ObjectId(req.params.id),
+      })
+      .toArray();
+    res.status(200).send(product);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
 }
