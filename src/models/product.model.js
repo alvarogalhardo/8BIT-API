@@ -17,9 +17,11 @@ export const productSchema = joi.object({
           "Arcade",
           "Ação",
           "Tabuleiro",
-          "Simulação",
           "Esportes",
-          "Casual"
+          "Casual",
+          "Aventura",
+          "FPS",
+          "Corrida"
         )
     )
     .required(),
