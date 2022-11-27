@@ -2,8 +2,8 @@ import { Router } from "express";
 import { authValidation } from "../middlewares/auth.validation.middleware.js";
 import {
   postProduct,
-  searchProducts,
   getProducts,
+  getProductById,
 } from "../controllers/product.js";
 import {
   adminValidation,
@@ -13,8 +13,8 @@ import {
 const productRouter = Router();
 
 productRouter.use(authValidation);
-productRouter.get("/products/search", queryValidation, searchProducts);
 productRouter.post("/products", adminValidation, postProduct);
-productRouter.get("/products", getProducts);
+productRouter.get("/products/:id", getProductById);
+productRouter.get("/products", queryValidation, getProducts);
 
 export default productRouter;
