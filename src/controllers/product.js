@@ -14,7 +14,6 @@ export async function postProduct(req, res) {
 
 export async function getProducts(req, res) {
   const search = String(res.locals.search);
-  search.toUpperCase();
   const limit = parseInt(req.query.limit);
   let products;
   try {
@@ -24,7 +23,7 @@ export async function getProducts(req, res) {
           $or: [
             { title: { $regex: search, $options: "i" } },
             { desc: { $regex: search, $options: "i" } },
-            { categories: { $in: [search] } },
+            { categories: { $in: [RegExp(search, "i")] } },
           ],
         })
         .limit(limit)
