@@ -12,7 +12,7 @@ export function schemaValidation(req, res, next) {
 }
 
 export async function cartExists(req, res, next) {
-    const {id} = req.params;
+  const { id } = req.params;
   try {
     const exists = await cartCollection.findOne({ userId: ObjectId(id) });
     if (exists) {
