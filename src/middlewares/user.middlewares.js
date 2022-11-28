@@ -34,7 +34,9 @@ export async function signInValidation(req, res, next) {
     if (bcrypt.compareSync(password, user.password)) {
       const online = await sessionsCollection.findOne({ userId: user._id });
       if (online)
-        return res.status(200).send({ name: user.name, token: online.token });
+        return res
+          .status(200)
+          .send({ name: user.name, token: online.token, id: user._id });
       res.locals.user = user;
       next();
     } else {
