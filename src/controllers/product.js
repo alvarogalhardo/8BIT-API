@@ -13,7 +13,7 @@ export async function postProduct(req, res) {
 }
 
 export async function getProducts(req, res) {
-  const search = res.locals.search;
+  const search = String(res.locals.search);
   search.toUpperCase();
   const limit = parseInt(req.query.limit);
   let products;
