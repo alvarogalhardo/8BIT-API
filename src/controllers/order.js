@@ -5,7 +5,6 @@ export async function createOrder(req, res) {
   const { _id } = res.locals.user;
   try {
     const cart = await cartCollection.findOne({ userId: _id });
-    console.log(cart);
     await orderCollection.insertOne({
       userId: new ObjectId(_id),
       ...cart.products,

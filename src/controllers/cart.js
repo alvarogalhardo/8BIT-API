@@ -21,7 +21,7 @@ export async function updateCart(req, res) {
         $set: req.body,
       }
     );
-    res.sendStatus(200);
+    res.status(200).send(updatedCart);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
@@ -39,13 +39,13 @@ export async function getCart(req, res) {
   }
 }
 
-export async function deleteCart(req,res){
-    const {id} = req.params;
-    try{
-        await cartCollection.deleteOne({userId: new ObjectId(id)})
-        res.sendStatus(200)
-    } catch(err){
-        console.log(err);
-        res.sendStatus(500)
-    }
+export async function deleteCart(req, res) {
+  const { id } = req.params;
+  try {
+    await cartCollection.deleteOne({ userId: new ObjectId(id) });
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
 }
