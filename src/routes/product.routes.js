@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { authValidation } from "../middlewares/auth.validation.middleware.js";
 import {
   postProduct,
   getProducts,
@@ -12,7 +11,6 @@ import {
 
 const productRouter = Router();
 
-productRouter.use(authValidation);
 productRouter.post("/products", adminValidation, postProduct);
 productRouter.get("/products/:id", getProductById);
 productRouter.get("/products", queryValidation, getProducts);
