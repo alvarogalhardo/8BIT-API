@@ -31,7 +31,7 @@ export async function getProducts(req, res) {
       res.status(200).send(products);
     } else {
       products = await productsCollection
-        .find()
+        .find({})
         .limit(limit)
         .sort({ _id: 1 })
         .toArray();
