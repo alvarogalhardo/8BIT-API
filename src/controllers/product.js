@@ -18,7 +18,7 @@ export async function getProducts(req, res) {
   const limit = parseInt(req.query.limit);
   let products;
   try {
-    if (search) {
+    if (search.length > 0) {
       products = await productsCollection
         .find({
           $or: [
